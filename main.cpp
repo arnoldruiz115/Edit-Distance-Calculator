@@ -9,4 +9,6 @@ int main(){
 	cin >> w1;
 	cout << "Enter second word: ";
 	cin >> w2;
+
+	cout << "Edit distance is: ";
 }
