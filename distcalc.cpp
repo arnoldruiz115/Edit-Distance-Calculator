@@ -1,4 +1,5 @@
 #include "distcalc.h"
+#include <algorithm>
 #include <iomanip>
 
 void eDistance(string w1, string w2){
@@ -13,11 +14,6 @@ void eDistance(string w1, string w2){
 	}
 	
 	//Fill in base values
-	for(int i = 0; i < rows; ++i){
-		for(int j = 0; j < cols; ++j){
-			eMatrix[i][j] = -1;
-		}
-	}
 	eMatrix[0][0] = 0;
 	for (int i = 1; i < rows; ++i){
 		eMatrix[i][0] = i;
@@ -26,18 +22,36 @@ void eDistance(string w1, string w2){
 		eMatrix[0][i] = i;
 	}
 	
+	//adding one character to both words to match table
+	string word1 = "-" + w1;
+	string word2 = "-" + w2;
+	
+	//Fill in matrix
+	for(int i = 1; i < rows; ++i){
+		for(int j = 1; j < cols; ++j){
+			if(word1[i]==word2[j]){
+				eMatrix[i][j] = eMatrix[i-1][j-1];
+			}
+			else{
+				eMatrix[i][j] = min({eMatrix[i-1][j-1], eMatrix[i][j-1], eMatrix[i-1][j]})+1;
+			}
+		}
+	}
+	
 	//Display the matrix
 	cout << "Matrix: \n";
 	string temp1 = "-" + w1;
 	string temp2 = " -" + w2;
 	for(int i = 0; i < cols+1; ++i){
-			cout << setw(3) << left << temp2[i] << " | ";
+			cout << setw(2) << left << temp2[i] << " | ";
 		}
 	for(int i = 0; i < rows; ++i){
 		cout << endl;
-		cout << setw(3) << left << temp1[i] << " | ";
+		for(int k = 0; k < cols; ++k){ cout << setw(2) << left << "-----";}
+		cout << endl;
+		cout << setw(2) << left << temp1[i] << " | ";
 		for(int j = 0; j < cols; ++j)
-			cout << setw(3) << left << eMatrix[i][j] << " | ";
+			cout << setw(2) << left << eMatrix[i][j] << " | ";
 	}
 	cout << endl;
 	
