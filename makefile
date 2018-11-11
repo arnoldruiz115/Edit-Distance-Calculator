@@ -1,8 +1,11 @@
-main: main.o
-	g++ main.o -o EditDist
+main: main.o distcalc.o
+	g++ main.o distcalc.o -o EditDist
 
 main.o: main.cpp
-	g++ -c main.cpp 
+	g++ -c main.cpp
+
+distcalc.o: distcalc.cpp distcalc.h
+	g++ -c distcalc.cpp
 
 clean:
-	rm -f EditDist main.o
+	rm -f EditDist main.o distcalc.o
