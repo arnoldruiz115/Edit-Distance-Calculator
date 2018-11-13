@@ -33,7 +33,8 @@ void eDistance(string w1, string w2){
 				eMatrix[i][j] = eMatrix[i-1][j-1];
 			}
 			else{
-				eMatrix[i][j] = min({eMatrix[i-1][j-1], eMatrix[i][j-1], eMatrix[i-1][j]})+1;
+				eMatrix[i][j] = min({eMatrix[i-1][j-1], 
+				eMatrix[i][j-1], eMatrix[i-1][j]})+1;
 			}
 		}
 	}
@@ -47,14 +48,38 @@ void eDistance(string w1, string w2){
 		}
 	for(int i = 0; i < rows; ++i){
 		cout << endl;
-		for(int k = 0; k < cols; ++k){ cout << setw(2) << left << "-----";}
-		cout << endl;
 		cout << setw(2) << left << temp1[i] << " | ";
 		for(int j = 0; j < cols; ++j)
 			cout << setw(2) << left << eMatrix[i][j] << " | ";
 	}
 	cout << endl;
 	
-	cout << "\nEdit distance is: " << eMatrix[rows-1][cols-1];
-	cout << "\nAlignment is: " << endl << w1 << endl << w2 << endl;
+	cout << "\nEdit distance is: " << eMatrix[rows-1][cols-1] << endl;
+	//Finding Alignment
+	int i = rows-1;
+	int j = cols-1;
+	int tempMin, diag, top, left;
+	bool diagMin = false;
+	while(i > 0 && j > 0){
+		diag = eMatrix[i-1][j-1];
+		top =  eMatrix[i-1][j];
+		left = eMatrix[i][j-1];
+		tempMin = min({diag, top, left});
+		if(tempMin == diag){
+			 diagMin = true;
+			 cout << "Diag Min" << endl;
+			 i--;
+			 j--;
+		 }
+		 if(!diagMin){
+			 if(tempMin == top) {cout << "top min" << endl;
+			 i--;
+		 }
+		 else{
+			 cout << "left min" << endl;
+			 j--;
+			}
+		 }
+		 diagMin = false;	
+	}
 }
