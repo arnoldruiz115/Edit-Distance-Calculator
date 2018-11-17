@@ -1,5 +1,5 @@
 main: main.o distcalc.o
-	g++ main.o distcalc.o -o EditDist
+	g++ main.o distcalc.o -o EditDist.exe
 
 main.o: main.cpp
 	g++ -c main.cpp
