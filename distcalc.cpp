@@ -99,5 +99,5 @@ void eDistance(string w1, string w2){
 	}
 	reverse(align1.begin(), align1.end());
 	reverse(align2.begin(), align2.end());
-	cout << "\nAlignment: \n" << align1 << endl << align2;
+	cout << "\nAlignment: \n" << align1 << endl << align2 << endl;
 }
